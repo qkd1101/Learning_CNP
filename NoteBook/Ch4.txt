@@ -1,36 +1,36 @@
- TCP/IP ÇÁ·ÎÅäÄÝ -> OSI 7 Layer
+ TCP/IP í”„ë¡œí† ì½œ -> OSI 7 Layer
 
- TCP/UDP¸¸ ¼³Á¤ÇÏ°í ³ª¸ÓÁö´Â OS°¡ ¾Ë¾Æ¼­ ¼³Á¤ÇÔ. (ex) Link ¿Í °°Àº °æ¿ì´Â ¾î´À ¶ó¿ìÅÍµéÀ» ÅëÇØ¼­ ¸ñÀûÁö¿¡ Á¢¼ÓÇÒÁö OS°¡ ¾Ë¾Æ¼­ °áÁ¤ÇÔ. À¯¼± : 802.3 ¹«¼± : 802.11
+ TCP/UDPë§Œ ì„¤ì •í•˜ê³  ë‚˜ë¨¸ì§€ëŠ” OSê°€ ì•Œì•„ì„œ ì„¤ì •í•¨. (ex) Link ì™€ ê°™ì€ ê²½ìš°ëŠ” ì–´ëŠ ë¼ìš°í„°ë“¤ì„ í†µí•´ì„œ ëª©ì ì§€ì— ì ‘ì†í• ì§€ OSê°€ ì•Œì•„ì„œ ê²°ì •í•¨. ìœ ì„  : 802.3 ë¬´ì„  : 802.11
 
- TCP µ¥ÀÌÅÍ Àü¼Û º¸Àå ( È£½ºÆ® A °¡ 1, 2, 3 ÆÐÅ¶À» È£½ºÆ® B¿¡ º¸³½´Ù ÇÏ¿´À»¶§ È£½ºÆ® B°¡ 1, 3¹ø ÆÐÅ¶¸¸ ¹Þ¾Ò´Ù°í ÇÏ¸é 2¹øÀ» ´Ù½Ã º¸³»¶ó°í ¿äÃ»ÇÒ ¼ö ÀÖÀ½.)
+ TCP ë°ì´í„° ì „ì†¡ ë³´ìž¥ ( í˜¸ìŠ¤íŠ¸ A ê°€ 1, 2, 3 íŒ¨í‚·ì„ í˜¸ìŠ¤íŠ¸ Bì— ë³´ë‚¸ë‹¤ í•˜ì˜€ì„ë•Œ í˜¸ìŠ¤íŠ¸ Bê°€ 1, 3ë²ˆ íŒ¨í‚·ë§Œ ë°›ì•˜ë‹¤ê³  í•˜ë©´ 2ë²ˆì„ ë‹¤ì‹œ ë³´ë‚´ë¼ê³  ìš”ì²­í•  ìˆ˜ ìžˆìŒ.)
 
- UDP µ¥ÀÌÅÍ Àü¼Û º¸Á¤ÇÏÁö ¾ÊÀ½
+ UDP ë°ì´í„° ì „ì†¡ ë³´ì •í•˜ì§€ ì•ŠìŒ
 
- ÆÐÅ¶ º¸³»´Â ¹æ¹ýÀº °øÃ¥ ±×¸² ÂüÁ¶.
+ íŒ¨í‚· ë³´ë‚´ëŠ” ë°©ë²•ì€ ê³µì±… ê·¸ë¦¼ ì°¸ì¡°.
 
- accept() : »õ·Î¿î ¼ÒÄÏ »ý¼º, ¿¬°á´ë±â Å¥ÀÇ ¼ÒÄÏ°ú »õ ¼ÒÄÏÀ» ¿¬°áÇÔ. (¿¬°á´ë±â Å¥ÀÇ ¼ÒÄÏÇÏ´Â ¹æ½ÄÀº ÀÚµ¿°ü¸® µÇ¹Ç·Î ¾ËÇÊ¿ä¾øÀ½)
+ accept() : ìƒˆë¡œìš´ ì†Œì¼“ ìƒì„±, ì—°ê²°ëŒ€ê¸° íì˜ ì†Œì¼“ê³¼ ìƒˆ ì†Œì¼“ì„ ì—°ê²°í•¨. (ì—°ê²°ëŒ€ê¸° íì˜ ì†Œì¼“í•˜ëŠ” ë°©ì‹ì€ ìžë™ê´€ë¦¬ ë˜ë¯€ë¡œ ì•Œí•„ìš”ì—†ìŒ)
 
- listen(int sock ´ë±âÇÒ ¼­¹ö ¼ÒÄÏ, backlog Å¥ÀÇ Å©±â)
+ listen(int sock ëŒ€ê¸°í•  ì„œë²„ ì†Œì¼“, backlog íì˜ í¬ê¸°)
 
- ¿¬°á¿äÃ»µµ µ¥ÀÌÅÍ Àü¼Û(ÄÁÆ®·Ñ ÆÐÅ¶)Áß ÇÏ³ª,
+ ì—°ê²°ìš”ì²­ë„ ë°ì´í„° ì „ì†¡(ì»¨íŠ¸ë¡¤ íŒ¨í‚·)ì¤‘ í•˜ë‚˜,
 
- int accept(int sock ¼­¹ö ¼ÒÄÏ,struct sockaddr* Å¬¶óÀÌ¾ðÆ®ÀÇ ÁÖ¼Ò Á¤º¸¸¦ ´ãÀ» ºñ¾îÀÖ´Â ¼ÒÄÏ, µÎ¹øÂ° ÁÖ¼ÒÀÇ ±æÀÌ)		//±æÀÌ¸¦ ÁÖ´Â ÀÌÀ¯´Â ¼ÒÄÏÀÇ ÁÖ¼Ò¸¦ ¾Ë°í ±æÀÌ¸¦ ¾Ë¸é ¾îµð±îÁö°¡ ÁÖ¼Ò ±¸Á¶Ã¼ÀÎÁö ¾Ë ¼ö ÀÖ±â ¶§¹®.
-	»õ·Î¿î ¼ÒÄÏ(µ¥ÀÌÅÍ¸¦ ÁÖ°í¹ÞÀ»)ÀÇ file descriptionÀ» return ÇÑ´Ù.
+ int accept(int sock ì„œë²„ ì†Œì¼“,struct sockaddr* í´ë¼ì´ì–¸íŠ¸ì˜ ì£¼ì†Œ ì •ë³´ë¥¼ ë‹´ì„ ë¹„ì–´ìžˆëŠ” ì†Œì¼“, ë‘ë²ˆì§¸ ì£¼ì†Œì˜ ê¸¸ì´)	
+ //ê¸¸ì´ë¥¼ ì£¼ëŠ” ì´ìœ ëŠ” ì†Œì¼“ì˜ ì£¼ì†Œë¥¼ ì•Œê³  ê¸¸ì´ë¥¼ ì•Œë©´ ì–´ë””ê¹Œì§€ê°€ ì£¼ì†Œ êµ¬ì¡°ì²´ì¸ì§€ ì•Œ ìˆ˜ ìžˆê¸° ë•Œë¬¸. ìƒˆë¡œìš´ ì†Œì¼“(ë°ì´í„°ë¥¼ ì£¼ê³ ë°›ì„)ì˜ file descriptionì„ return í•œë‹¤.
 
 
- TCP¿¡¼­ ClientÀÇ connet
+ TCPì—ì„œ Clientì˜ connet
 
- connect(Å¬¶óÀÌ¾ðÆ®ÀÇ ¼ÒÄÏ, ¼­¹öÀÇ ÁÖ¼Ò, ±æÀÌ) ¹ÝÈ¯ ¹æ¹ý 1) backlog°¡ ºñ¾îÀÖ¾î¼­ accept()°¡ ¼ÒÄÏÀ» ¸¸µé°í ÁÖ¼Ò¸¦ ¼³Á¤ÈÄ ¹ÝÈ¯
-    ¹ÝÈ¯Àº Ã¹¹øÂ° ÀÎÀÚ(intÅ¸ÀÔ) Å¬¶óÀÌ¾ðÆ® ¼ÒÄÏ	     	 2) backlog¿¡ ±â·Ï¸¸ ÇØ³õ°í ¹ÝÈ¯
+ connect(í´ë¼ì´ì–¸íŠ¸ì˜ ì†Œì¼“, ì„œë²„ì˜ ì£¼ì†Œ, ê¸¸ì´) ë°˜í™˜ ë°©ë²• 1) backlogê°€ ë¹„ì–´ìžˆì–´ì„œ accept()ê°€ ì†Œì¼“ì„ ë§Œë“¤ê³  ì£¼ì†Œë¥¼ ì„¤ì •í›„ ë°˜í™˜
+    ë°˜í™˜ì€ ì²«ë²ˆì§¸ ì¸ìž(intíƒ€ìž…) í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“	     	 2) backlogì— ê¸°ë¡ë§Œ í•´ë†“ê³  ë°˜í™˜
 
- connect() ¹ÝÈ¯ ¾Ë°í¸®Áò : ±×¸²ÂüÁ¶.
+ connect() ë°˜í™˜ ì•Œê³ ë¦¬ì¦˜ : ê·¸ë¦¼ì°¸ì¡°.
 
- Iterative ¼­¹ö
+ Iterative ì„œë²„
 
- accept() ~ close(client_sock) backlog¿¡¼­ ´ë±â ¼ÒÄÏÀ» ²¨³»¿À¸ç ¹Ýº¹ 
+ accept() ~ close(client_sock) backlogì—ì„œ ëŒ€ê¸° ì†Œì¼“ì„ êº¼ë‚´ì˜¤ë©° ë°˜ë³µ 
 
- read()/write()´Â Network Interface Card¿¡ ÀÖ´Â ¹öÆÛ¿¡ Àû¾ú´Ù°¡ ÀÌ°É write()/read()¹öÆÛ·Î º¸³»´Â °ÍÀÌ´Ù.
+ read()/write()ëŠ” Network Interface Cardì— ìžˆëŠ” ë²„í¼ì— ì ì—ˆë‹¤ê°€ ì´ê±¸ write()/read()ë²„í¼ë¡œ ë³´ë‚´ëŠ” ê²ƒì´ë‹¤.
 
- ¼­¹ö¿¡¼­ÀÇ read()/write() ´ë»óÀº accept()¿¡¼­ »õ·Î ¹ÝÈ¯µÈ(¸¸µé¾îÁø) ¼ÒÄÏÀÌ´Ù. -> client¿Í ¿¬°áµÇ¾îÀÖ±â ¶§¹®¿¡ ¿©±â´Ù read/writeÇÔ.
+ ì„œë²„ì—ì„œì˜ read()/write() ëŒ€ìƒì€ accept()ì—ì„œ ìƒˆë¡œ ë°˜í™˜ëœ(ë§Œë“¤ì–´ì§„) ì†Œì¼“ì´ë‹¤. -> clientì™€ ì—°ê²°ë˜ì–´ìžˆê¸° ë•Œë¬¸ì— ì—¬ê¸°ë‹¤ read/writeí•¨.
 
- ¿¡ÄÚ Å¬¶óÀÌ¾ðÆ®ÀÇ ¹®Á¦ : ch5·Î.
+ ì—ì½” í´ë¼ì´ì–¸íŠ¸ì˜ ë¬¸ì œ : ch5ë¡œ.
