@@ -1,0 +1,36 @@
+Sicket -> 아무 옵션을 안주면 blocking 모드가 기본이다. 그런데 여기서 데이터가 아무것도 없으면 들어올때 까지 기다리는 blocking모드로 열리지만
+			데이터가 조금이라도 있으면 Non-blocking모드로 열린다.
+
+도메인 -> String으로 구성된 IP 정보 (DNS서버가 IP정보로 바꿈)
+
+도메인 이 주어짐
+>Default DNS Server에서 찾음
+>없으면 상위 DNS Server
+>없으면 더 상위 ...
+>root DNS Server에도 없으면 그 하위
+...
+
+--> DNS : hierarchical 분산 데이터 시스템의 일종이다.
+
+struct hostent * gethostbyname(const cahr * hostname);		-> 도메인으로 IP주소로 변환하는 함수.
+															 ->시스템콜이 아닌 라이브러리함수이다. 응용프로그램에서는 System call로 호출한 주소에 접근 금지.
+
+하나의 서버는 여러 IP주소와 여러개의 도메인 네임을 가질 수 있다.
+
+strcut hostent
+{
+char * h_name;			//대표 도메인
+char ** h_alias;		//도메인 이름들
+int h_addrtype;		    //IPv4, IPv6, UNIX등,, 주소의 타입(길이를 결정함. IPv4 4 Bytes IPv6 16 Bytes..)
+int h_addrlength;		//위에서 결정된 길이
+char ** h_addr_list;	//여러개의 IP주소(왜 String취급? IPv4혹은 IPv6, 유닉스 등 많은 종류가 있고 뭐가 들어올지 몰라서) -> 사실 캐스팅 해주려면 void*가 오는게 맞는데 당시엔 그게 표준화 되어 있지 않았음.
+}
+
+IP 주소
+		inet_ntoa(*(struct in_addr *)host->h_addr_list[]);
+
+IP주소를 주면서 Domain정보 get
+	struct hostent * gethostbyname(const char * addr, socklen_t len(주소 길이 지정 IPv4면 항상 32bits),int family(ip주소 타입));
+	
+	(char *)&s_addr.sin_addr  --> 주소를 char로 타입 캐스팅 해주어야함. (마찬가지로 무슨 IP주소 버전이 들어올지 몰라서.)
+	 ->출력할땐 (struct in_addr)로 캐스팅 해주어야함.

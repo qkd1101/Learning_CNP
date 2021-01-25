@@ -1,0 +1,15 @@
+A Socket want to close,
+
+Close()를 호출하면 r/w 버퍼가 닫히는데 여기서 w버퍼는 버퍼내 모든 내용의 전송을 보장하고 닫는다. 그 내용의 마지막에는 EOF(End Of File)이 붙는다. -> 다받았는지 안받았는지 알 수 있다.
+	->상대 소켓 상태와 상관없이 일반적인 호출
+		--> 상대 호스트가 데이터 전송이 완전히 완료되지 못하였을때 문제가 야기.
+			=>Half Close 기법이 대안.
+
+Half-Close -> write는 종료시킴(read만 종료시켜도 half_close라고 한다.)
+
+1.Half-close(Host A's write)
+2.close(Host B read/write)
+3.Half-close(Host A's read) or close(Host A)
+ ->half_close는 상대 소켓하고 연결을 해제하고자 하는 소켓이 먼저 호출한다.
+	=>함수 : shutdown(소켓,리드/라이트/둘다 int howto 택 1)
+		howto - SHUT_RD SHUT_WR SHUT_RDWR

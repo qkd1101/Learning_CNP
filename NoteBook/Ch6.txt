@@ -1,0 +1,34 @@
+UDP -> SEQ, ACK와 같은 메세지 전달이 없음.(FLOW OCNTROL 없음.)
+	-> 연결의 설정 해제 존재하지 않음
+	-> 데이터 손실 가능성
+	-> 데이터 전송이 빠름.		: 성능이 중요시 될때 쓰임.
+
+
+UDP 데이터 송수신 -> TCP는 1:1 연결 / UDP는 연결의 개념이 없다.(즉, 여러개의 소켓과 통신 할 수 있다는 것.) (1:n 관계)
+
+UDP 소켓 주소의 형태 : IP + PORT
+
+sendto(UDP소켓,버퍼,버퍼크기,flags,보낼소켓(타겟소켓),(struct sockaddr_t)보낼소켓의 크기)
+	버퍼크기만큼 꼭 보내라는게 아니라 NULL(\0)이 나올때 까지 보냄.
+
+recvfrom(UDP소켓,버퍼,BUF_SIZE,flags,타겟주소,(struck sockaddr_t *) 타겟주소의 크기)
+	타겟주소 : 비워 두었다가 데이터가 오면 어떤 소켓에서 왔는지를 저장.
+	
+	sento에는 구조체만 적고 왜 recvfrom에선 타겟주소의 크기를 주소로 주냐면 recvfrom에서 보내는 쪽의 소켓의 크기도 받지만 커널에서 주소도 줌으로써 수정할 수 있다. 즉, 주소에 접근해서 가져온다음 수정할 수도 있다는것. call by reference
+
+UDP기반의 에코 클라이언트
+UDP는 데이터의 경계가 존재 -> sendto() 를 한번 했으면 recvfrom()이 다 읽어야 한다는것.
+							-> 3번의 sendto() : 3번의 recvfrom()
+
+							TCP는 그냥 온만큼 읽어간다.
+
+ clnt_sock의 IP와 PORT는 sendto()가 한번 호출되면 할당 된다.
+
+ unconnected UDP socket sendto()
+ 1단계 : 목적지의 IP/PORT를 소켓에 저장.
+ 2단계 : 데이터 전송.
+ 3단계 : 타겟주소정보 삭제
+
+ ->but, UDP도 하나의 소켓에만 전송할 경우도 있다. (성능상 TCP를 사용하지 않고 UDP를 사용하는것이 더 이득일때.) : 1,3 단계는 거치지 않음.
+	->connected UDP socket : connect(내 소켓, 상대 소켓, 크기)
+							  UDP인데 connect()를 사용한 connected UDP socket이면 sendto()보단 read()/write()를 쓴다.(타겟과 connect했음으로 타겟과의 서로 연결된것이란 의미는 아니므로 주의!)

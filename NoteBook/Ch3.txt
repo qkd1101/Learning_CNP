@@ -1,0 +1,105 @@
+소켓 타입
+연결 지향형
+TCP -> 데이터를 메세지 형태로 전송, 연속성보다 신뢰성있는 전송이 중요할때(https 등..)
+	중간에 데이터 소멸 안됨
+	전송순서대로 데이터 수신됨
+	데이터 경계가 없음 - SOCK_STREAM 데이터의 흐름. 데이터가 쭉오니까 데이터를 받을 경계지점 선택. write()/read() 숫자가 1대1이 아니어도 됨.
+	소켓 대 소켓의 연결은 1대1 - 여러명이 하나의 소켓과 통신이 어려움
+	'전화' 하는것 같다.
+	int protocol IPPROTO_TCP으로 할당
+
+비 연결 지향형
+UDP -> 데이터그램으로 전송, 신뢰성보단 연속성있는 전송이 중요할때(game, streaming 등..)
+	전송순서 상관없이 빠른 속도의 전송을 지향
+	데이터 손실 및 파손의 우려가 있다 - TCP는 데이터가 깨지면 다시 보내달라 할 수 있음.
+	데이터의 경계가 존재한다 - 데이터를 하나 보내면 다 받아야함.
+	한번에 전송할 수 있는 데이터의 크기가 제한된다.
+	'우편'같다.
+	int protocol IPPROTO_UDP
+
+	사실 첫번재 두번째 인자로 전달된 정보로 소켓 프로토콜이 결정되기 때문에 0으로 int protocol을 할당해도 됨. 
+
+	read() - blocking  방식, 데이터가 할당된만큼 읽을수 있을때까지 대기하다가 읽어야지만 리턴함. 즉, 읽을것이 있을때까지 대기함.
+		   - Non-blocking 방식, 읽을 데이터가 없으면 바로 리턴함.(0리턴) : TCP소켓, 소켓을 만들때 socket() 내부에서 non-blocking모드로 염.
+
+
+internet address IPv4 -> 4bytes  
+				 IPv6 -> 6bytes
+
+			struct sockaddr_in {
+				short sin_family; //주소 체계이며 이미 IPv4의 소켓주소 할당 구조체 이기 때문에 AF_INET이 들어감.
+				uint16_t sin_port; //포트번호
+				struct in_addr sin_addr; //32비트 IP주소
+				char sin_zero[8]; //'0'으로 채워진 더미 데이터
+			}	 
+			struct in_addr {
+				in_addr_t s_addr; //32비트(4bytes) 직관적,시스템이 바뀌었을때 type define만 바꾸면 되니까 확장성이 좋음.
+			}
+
+인터넷주소
+ 클래스 A, B, C, D...
+
+ 클래스 C 3Bytes 네트워크ID, 1Byte의 호스트 ID
+
+ 첫번째 바이트 정보만 참조해도 IP주소의 클래스를 알 수 있다.
+ A : 0~127
+ B : 128~191
+ C : 192 ~ 223
+
+ 하나의 프로그램에는 2개 이상의 소켓이 있을 수 있다.
+-IP는 동일하나 포트번호로 소켓을 구분할 수 있다
+
+Port : 소켓을 분류하는 방법
+
+port -> 16bits(0~65535) / 0~1023까지는 well-Knowen Port라고 용도가 미리 결정된 포트이다.)
+
+Byte order
+
+데이터가 바이트 단위로 메모리에 저장되는 순서
+
+데이터 송,수신 방식
+
+Big Endian : 0x1234 -> 0x12 | 0x34
+			 모토로라, IBM 계열 power PC
+
+Little Endian : 0x1234 -> 0x34 | 0x12 (바이트 단위이므로 2개씩)
+				인텔/AMD 계열
+
+바이트 순서 변환
+unsigned short htons(unsigned short); //2bytes
+unsigned short ntohs(unsigned short);
+unsigned long htonl(unsigned long);	  //4bytes
+unsigned long ntohl(unsigned long);
+
+호스트의 데이터 타입을 네트워크 바이트타입으로 바꾸는 함수들.(빅 에디안으로) 호스트 데이터타입에 상관없이 항상 수행되어야함 -> 이식성을 위하여.
+맞는지 아닌지 모르겠는데 호스트가 포트데이터를 네트워크에 주었을때 반대로 주소가 저장된다면 호스트는 리틀 엔디안으로 볼 수 있다
+
+inet_addr -> IPv4주소로 표현된 127.46.125.7 -> in_addr_t타입으로 변환 시켜줌 32비트라 읽기힘들어서 n.n.n.n등으로 표현된것을 다시 바꾸어주는 거임.
+			 IPv4주소는 256을 넘지 못함.
+			 in_addr_t로 리턴해줌
+
+inet_aton -> 위와 기능은 동일, 주소로 바로줌. 인자 String,Socket | int로 반환해줌. | 소켓구조체에 반환함.
+
+**inet_addr과 inet_aton은 예제를 보고 이해하는것이 제일 빠름.
+
+
+인터넷 초기화
+
+struct sockaddr_in addr;
+char *serv_ip="211.217.168.13";	//ip address
+char *serv_port="9190"; //port number
+memset(&addr,0,siezeof(addr));		//마지막 더미데이터부분을 0으로 채워넣어야 하기 때문에 다 0으로 일단 채움.
+addr.sin_family=AF_INET;	//주소체계 지정.
+addr.sin_addr.s_addr=inet_addr(serv_ip);	//문자열 기반의 ip주소의 초기화
+addr.sin_port=htons(atoi(serv_port));		//문자열 기반의 port번호의 초기화
+
+htons쓴 이유는 물어보기 : 내가 생각하는 이유 - 어짼던 port에 연결은 할것이고 내가 호스트 이기 때문에 htons를 썻다고 생각함.
+
+서버에서 주소정보 설정 이유 : 특정 IP와포트로 들어오는 데이터는 나에게.
+클라이언트에서 주소정보 설정 이유 : 특정 IP와 포트로 연결해.
+
+INADDR_ANY : addr.sin_addr.s_addr = htonl(INADDR_ANY), 이건 현재 실행 중인 컴퓨터의 IP를 소켓에 부여할때 사용하는데,
+			 난 이걸 왜 htonl을 내가 서버고 서버소켓에 주소를 할당할 것인데 이미 IP주소는 정해져 있어서 INDDR_ANY를 통해 할당하였다고 생각함.
+			 -두번째 이유 : 내가 호스트 이기때문에 htons를 사용하였고, IP주소는 로컬 주소를 줄꺼라서 INDDR_ANY를 사용함.
+
+??*htons등 정확한 사용 시기 알아볼것.

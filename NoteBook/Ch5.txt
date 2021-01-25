@@ -1,0 +1,52 @@
+에코 클라이언트
+
+read를 하면 바로 write하는 client
+
+에코 클라이언트의 문제점 : 소켓파일은 Non-blocking read형식이라서 지연때문에 아직 모든 데이터가 가지 않았음에도 read를 멈추는 경우가 발생. 큰 데이터를 주고 받기에 적절하지 않다고 볼 수 있음.
+해결책 : 보낼 데이터의 크래를 보내서 다 읽을때 가지 읽게함.
+
+str_len = write(fd, buf, count)(write의 리턴은 write한 byte 수 이다. 즉 size of buf 라고 볼 수 있다.)
+
+recv_cnt = read(fd,buf,count)(return size of buf)
+
+recv_len += recv_cnt
+
+해결책의 예시 : 계산기 프로그램. client가 operend가 3개 있다고 미리 보내줘서 server는 4byte의 operend 3개와 1Byte 연산자 1개 즉, 13byte가 올것이고 read를 operend와 연산자를 포함하여 4번해야함을 알게됨 -> 규약
+
+TCP 소켓의 기능 1) 흐름 제어 : Server와 Client의 입출력 버퍼의 크기를 걱정하지 않아도 되는것.
+				2) 오류 제어
+
+TCP에서 소켓을 닫았을때 버퍼에 남아있는 데이터는 : read() : 그냥 없어짐
+												   write() : 데이터가 보내는것 까지 보장 -> 다 write된 다음 닫힘.
+
+TCP통신에서의 상대 소켓 연결 : 3 way hand shaking
+
+Client									Server
+-> SEQ : 1000 ACK : -
+					
+					SEQ : 2000 ACK : 1001 <-
+
+-> SEQ : 1001 ACK : 2001
+
+
+
+
+TCP통신에서의 상대 소켓과 데이터 송.수신
+
+Client									Server
+-> SEQ : 1200 100bytes
+
+					ACK : 1301 (1200+100'+1')<-		전송된 data의 크기만큼 ack를 증가시키면 데이터의 손실 유무를 알 수 있다. 데이터의 크기만큼 오지 않았을때엔 더 보내면 되고 아에 안오면 다시 보내면 된다.(클라이언트에서 같은 SEQ로)
+
+-> SEQ : 1301 100bytes
+					ACK : 1402
+
+
+
+TCP통신에서의 상대 소켓과의 연결 종료 : 4 way hand shaking
+
+host A									host B
+->FIN피켓
+									ACK피켓<-
+									FIN<-
+->ACK피켓
