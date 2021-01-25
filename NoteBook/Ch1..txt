@@ -1,61 +1,61 @@
-socket : ÇÁ·Î±×·¥ÀÌ ³×Æ®¿öÅ©¿¡¼­ µ¥ÀÌÅÍ¸¦ ¼Û¼ö½Å ÇÒ ¼ö ÀÖµµ·Ï, ³×Æ®¿öÅ©È¯°æ¿¡ Á¢¼ÓÇÒ¼ö ÀÖµµ·Ï ÇÏ´Â ¿¬°áºÎ, µµ±¸
+socket : í”„ë¡œê·¸ëž¨ì´ ë„¤íŠ¸ì›Œí¬ì—ì„œ ë°ì´í„°ë¥¼ ì†¡ìˆ˜ì‹  í•  ìˆ˜ ìžˆë„ë¡, ë„¤íŠ¸ì›Œí¬í™˜ê²½ì— ì ‘ì†í• ìˆ˜ ìžˆë„ë¡ í•˜ëŠ” ì—°ê²°ë¶€, ë„êµ¬
 
-OSI 7 ´Ü°è  1. physical : Åë½Å ÄÉÀÌºí
-			2. Data Link : MACÁÖ¼Ò.¶ó¿ìÅÍ
-			3. NetWork : IPÁÖ¼Ò/ÇÁ·ÎÅäÄÝ
-			4. Transport : TCP µ¥ÀÌÅÍ¸¦ ¸Þ¼¼Áö ÇüÅÂ, ½Å·Ú¼º ¹ÙÅÁ /UDP µ¥ÀÌÅÍ±×·¥À¸·Î Àü¼Û, ¿¬¼Ó¼º ¹ÙÅÁ
-			5. Session : Port¿¬°á ÈÄ À¯È¿¼º Æò°¡
+OSI 7 ë‹¨ê³„  1. physical : í†µì‹  ì¼€ì´ë¸”
+			2. Data Link : MACì£¼ì†Œ.ë¼ìš°í„°
+			3. NetWork : IPì£¼ì†Œ/í”„ë¡œí† ì½œ
+			4. Transport : TCP ë°ì´í„°ë¥¼ ë©”ì„¸ì§€ í˜•íƒœ, ì‹ ë¢°ì„± ë°”íƒ• /UDP ë°ì´í„°ê·¸ëž¨ìœ¼ë¡œ ì „ì†¡, ì—°ì†ì„± ë°”íƒ•
+			5. Session : Portì—°ê²° í›„ ìœ íš¨ì„± í‰ê°€
 			6. Presentation
 			7. Application
 
-¼ÒÄÏ API : ¿î¿µÃ¼Á¦¿¡ ÀÇÇØ Á¦°øµÇ´Â ¼ÒÇÁÆ®¿þ¾îÀûÀÎ ÀåÄ¡
+ì†Œì¼“ API : ìš´ì˜ì²´ì œì— ì˜í•´ ì œê³µë˜ëŠ” ì†Œí”„íŠ¸ì›¨ì–´ì ì¸ ìž¥ì¹˜
 
-*----------------*									*---------------*
+*----------------*				    *---------------*
 | Clinent Socket | ------------------------------>  | Server Socket |
-*----------------*								7000*---------------*
+*----------------*				7000*---------------*
 (1.1.1.1)		    connet to(2.2.2.2:7000)		accept (2.2.2.2)
 
-¿äÃ»À» ¹Þ¾ÆµéÀÌ´Â ÂÊ¿¡¼­´Â ¾î¶² ¿¬°á¿äÃ»À» ¹Þ¾ÆµéÀÏ°ÍÀÎÁö ¹Ì¸® °áÁ¤(ÁÖ·Î Æ÷Æ®)
+ìš”ì²­ì„ ë°›ì•„ë“¤ì´ëŠ” ìª½ì—ì„œëŠ” ì–´ë–¤ ì—°ê²°ìš”ì²­ì„ ë°›ì•„ë“¤ì¼ê²ƒì¸ì§€ ë¯¸ë¦¬ ê²°ì •(ì£¼ë¡œ í¬íŠ¸)
 
-Server SocketÀº ClientÀÇ ¿¬°á¿äÃ»À» ¹Þ¾ÆµéÀÌ´Â ¿ªÇÒ¸¸ÇÔ. Á÷Á¢ÀûÀÎ µ¥ÀÌÅÍ ¼Û¼ö½ÅÀº »õ·Î¿î ¼ÒÄÏÀÌ ´ã´ç.
+Server Socketì€ Clientì˜ ì—°ê²°ìš”ì²­ì„ ë°›ì•„ë“¤ì´ëŠ” ì—­í• ë§Œí•¨. ì§ì ‘ì ì¸ ë°ì´í„° ì†¡ìˆ˜ì‹ ì€ ìƒˆë¡œìš´ ì†Œì¼“ì´ ë‹´ë‹¹.
 
 
 Socket API Precedure
 Client Socket 1)socket() :  create socket.
 							int socket(int domain, int type, int protocol)
 							domain : PF_INET, PF_INET6, PF_LOCAL, PF_PACKET(LOW LEVEL socket), PF_IPX(IPX Node protocol)
-							ÇÁ·ÎÅäÄÝ Ã¼°è¸¦ ÇÒ´çÇÏ°í ÇÁ·ÎÄÝÀÌ¶õ ¼ÒÄÏ³¢¸® Åë½ÅÇÏ±âÀ§ÇÑ ±Ô¾à
+							í”„ë¡œí† ì½œ ì²´ê³„ë¥¼ í• ë‹¹í•˜ê³  í”„ë¡œì½œì´ëž€ ì†Œì¼“ë¼ë¦¬ í†µì‹ í•˜ê¸°ìœ„í•œ ê·œì•½
 							type : Sock_STREAM(TCP), Sock_DGRAM(UDP)
-							protocol : 0À» ¾²¸é ½Ã½ºÅÛÀÌ ¾Ë¾Æ¼­ ÇÑ´Ù.
+							protocol : 0ì„ ì“°ë©´ ì‹œìŠ¤í…œì´ ì•Œì•„ì„œ í•œë‹¤.
 
-			  2)connect() : Å¬¶óÀÌ¾ðÆ® ¼ÒÄÏ¿¡ IP¿Í PORT(Å¬¶óÀÌ¾ðÆ® ÀÔÀå¿¡¼± ¾Ë ÇÊ¿ä°¡ ¾øÀ½. ¾ê´Â ¾Ë¾Æ¼­ OS¿¡¼­ ÁÜ ¿Ö³ÄÇÏ¸é ¼­¹öÀÇ Æ÷Æ®¹øÈ£·Î¸¦ Ã£¾Æ¼­ ¿¬°áÀ» ÀÌ¹Ì ¸¶ÃÆ±â ¶§¹®¿¡)¸¦ ÇÒ´çÇÔ. 
-							API : 'IPÁÖ¼Ò'¿Í 'Æ÷Æ®¹øÈ£'·Î ½Äº°µÇ´Â ´ë»óÀ¸·Î ¿¬°á ¿äÃ»
-							BLOCKÀ¸·Î µ¿ÀÛ : ¿äÃ»¿¡ ´ëÇÑ °á°ú°¡ °áÁ¤µÇ±â Àü±îÁø connect()ÀÇ ½ÇÇàÀº ¾È³¡³²(¸®ÅÏ X)
-							connect(Å¬¶óÀÌ¾ðÆ®¼ÒÄÏ,¼­¹öÀÇIP,PortÁ¤º¸,sizeof())
-							connet()¾È¿¡ Å¬¶óÀÌ¾ðÆ® ¼ÒÄÏ¿¡ ÁÙ IP¿Í PORT¹øÈ£¿¡ ´ëÇÑ bind()ÇÔ¼ö°¡ ÀÖÀ¸¸ç ÀÌ´Â OS°¡ ¾Ë¾Æ¼­ ÁÜ.
+			  2)connect() : í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ì— IPì™€ PORT(í´ë¼ì´ì–¸íŠ¸ ìž…ìž¥ì—ì„  ì•Œ í•„ìš”ê°€ ì—†ìŒ. ì–˜ëŠ” ì•Œì•„ì„œ OSì—ì„œ ì¤Œ ì™œëƒí•˜ë©´ ì„œë²„ì˜ í¬íŠ¸ë²ˆí˜¸ë¡œë¥¼ ì°¾ì•„ì„œ ì—°ê²°ì„ ì´ë¯¸ ë§ˆì³¤ê¸° ë•Œë¬¸ì—)ë¥¼ í• ë‹¹í•¨. 
+							API : 'IPì£¼ì†Œ'ì™€ 'í¬íŠ¸ë²ˆí˜¸'ë¡œ ì‹ë³„ë˜ëŠ” ëŒ€ìƒìœ¼ë¡œ ì—°ê²° ìš”ì²­
+							BLOCKìœ¼ë¡œ ë™ìž‘ : ìš”ì²­ì— ëŒ€í•œ ê²°ê³¼ê°€ ê²°ì •ë˜ê¸° ì „ê¹Œì§„ connect()ì˜ ì‹¤í–‰ì€ ì•ˆëë‚¨(ë¦¬í„´ X)
+							connect(í´ë¼ì´ì–¸íŠ¸ì†Œì¼“,ì„œë²„ì˜IP,Portì •ë³´,sizeof())
+							connet()ì•ˆì— í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ì— ì¤„ IPì™€ PORTë²ˆí˜¸ì— ëŒ€í•œ bind()í•¨ìˆ˜ê°€ ìžˆìœ¼ë©° ì´ëŠ” OSê°€ ì•Œì•„ì„œ ì¤Œ.
 
-			  3)send(),recv() : ºí·°µ¿ÀÛ
-								recv() -> ¾ðÁ¦ send() ÁÖÃ¼°¡ ¾î¶² °ÍÀ» º¸³¾Áö ¸ô¶ó ¾ðÁ¦ ³¡³¯Áö ¸ð¸§.
-								       -> º°µµÀÇ ½º·¹µå¿¡¼­ ½ÇÇà
-									      ¼ÒÄÏÀÌ »ý¼ºµÇ°í »õ·Î¿î ½º·¹µå¿¡¼­ recv()¸¦ ½ÇÇàÇÏ°í µ¥ÀÌÅÍ°¡ ¼ö½ÅµÇ±æ ±â´Ù¸°´Ù.
+			  3)send(),recv() : ë¸”ëŸ­ë™ìž‘
+								recv() -> ì–¸ì œ send() ì£¼ì²´ê°€ ì–´ë–¤ ê²ƒì„ ë³´ë‚¼ì§€ ëª°ë¼ ì–¸ì œ ëë‚ ì§€ ëª¨ë¦„.
+								       -> ë³„ë„ì˜ ìŠ¤ë ˆë“œì—ì„œ ì‹¤í–‰
+									      ì†Œì¼“ì´ ìƒì„±ë˜ê³  ìƒˆë¡œìš´ ìŠ¤ë ˆë“œì—ì„œ recv()ë¥¼ ì‹¤í–‰í•˜ê³  ë°ì´í„°ê°€ ìˆ˜ì‹ ë˜ê¸¸ ê¸°ë‹¤ë¦°ë‹¤.
 
-			  4)close() : ¼ÒÄÏÁ¦°Å. ´Ù½Ã ¾²·Á¸é ¼ÒÄÏÀ» ´Ù½Ã »ý¼ºÇØ¾ßÇÔ.
+			  4)close() : ì†Œì¼“ì œê±°. ë‹¤ì‹œ ì“°ë ¤ë©´ ì†Œì¼“ì„ ë‹¤ì‹œ ìƒì„±í•´ì•¼í•¨.
 
 
 
 
 Server Socket 1)socket() : create socket
 
-		      2)bind() : ¼ÒÄÏ°ú port¹øÈ£, IP¸¦ °áÇÕÇÔ.
-						 OS°¡ Æ¯Á¤ Æ÷Æ®¹øÈ£¸¦ ¼­¹ö¼ÒÄÏÀÌ »ç¿ëÇÏµµ·Ï ¸¸µé±â À§ÇØ ¼ÒÄÏ°ú Æ÷Æ®¹øÈ£¸¦ °áÇÕÇÒ¶§ ¾´´Ù.
-						 ¹ÙÀÎµùµÈ ¼ÒÄÏÀÌ¶ó°í ÇÑ´Ù.
-						 ÀÎÀÚ(serv soc.(struct sockadd*)struct sockaddr_in, sizeof¼ÒÄÏ);
-						 °­Á¦ ÄÉ½ºÆÃÇÏ´Â ÀÌÀ¯ : Å©±â°¡ °°¾Æ¼­ »ó°üÀº ¾ø°í, sockaddrÀÇ µ¥ÀÌÅÍ´Â sa_data·Î 14¹ÙÀÌÆ® ¹®ÀÚ¿­ÀÎµ¥ ¿©±â¿¡ Æ÷Æ®¿Í ¾ÆÀÌÇÇ¸¦ ±×³É °®´Ù³Ö±â¿¡´Â ¸¹ÀÌ ºÒÆíÇÏ¿© ÆíÀÇ¼ºÀ»
-						 À§ÇØ sockaddr_inÀ» ¸¸µé¾î »ç¿ëÇÏ¿´°í, bind()ÀÇ ÀÎÀÚ°¡ sockaddrÀÌ¹Ç·Î °­Á¦·Î Ä³½ºÆÃÇØÁÜ.
+		      2)bind() : ì†Œì¼“ê³¼ portë²ˆí˜¸, IPë¥¼ ê²°í•©í•¨.
+						 OSê°€ íŠ¹ì • í¬íŠ¸ë²ˆí˜¸ë¥¼ ì„œë²„ì†Œì¼“ì´ ì‚¬ìš©í•˜ë„ë¡ ë§Œë“¤ê¸° ìœ„í•´ ì†Œì¼“ê³¼ í¬íŠ¸ë²ˆí˜¸ë¥¼ ê²°í•©í• ë•Œ ì“´ë‹¤.
+						 ë°”ì¸ë”©ëœ ì†Œì¼“ì´ë¼ê³  í•œë‹¤.
+						 ì¸ìž(serv soc.(struct sockadd*)struct sockaddr_in, sizeofì†Œì¼“);
+						 ê°•ì œ ì¼€ìŠ¤íŒ…í•˜ëŠ” ì´ìœ  : í¬ê¸°ê°€ ê°™ì•„ì„œ ìƒê´€ì€ ì—†ê³ , sockaddrì˜ ë°ì´í„°ëŠ” sa_dataë¡œ 14ë°”ì´íŠ¸ ë¬¸ìžì—´ì¸ë° ì—¬ê¸°ì— í¬íŠ¸ì™€ ì•„ì´í”¼ë¥¼ ê·¸ëƒ¥ ê°–ë‹¤ë„£ê¸°ì—ëŠ” ë§Žì´ ë¶ˆíŽ¸í•˜ì—¬ íŽ¸ì˜ì„±ì„
+						 ìœ„í•´ sockaddr_inì„ ë§Œë“¤ì–´ ì‚¬ìš©í•˜ì˜€ê³ , bind()ì˜ ì¸ìžê°€ sockaddrì´ë¯€ë¡œ ê°•ì œë¡œ ìºìŠ¤íŒ…í•´ì¤Œ.
 
 			  3)listen() : SUCCESS / FAIL
-			               ´ë±âÁßÀÎ ¿¬°á¿äÃ»Àº Queue¿¡ ÀúÀåµÊ.
+			               ëŒ€ê¸°ì¤‘ì¸ ì—°ê²°ìš”ì²­ì€ Queueì— ì €ìž¥ë¨.
 						
-			  4)accept() : Å¬¶óÀÌ¾ðÆ® ¼ÒÄÏ°ú Ä¿³Ø¼Ç µÇ´Â°Ç accept api³»ºÎÀÇ »õ·Î¿î ¼ÒÄÏ(Connection Established Socket)
+			  4)accept() : í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ê³¼ ì»¤ë„¥ì…˜ ë˜ëŠ”ê±´ accept apië‚´ë¶€ì˜ ìƒˆë¡œìš´ ì†Œì¼“(Connection Established Socket)
 
-			  5)close() : socket() API + accept() APIÀÇ ¼ÒÄÏ µÑ´Ù ÀÚ¿øÇØÁ¦
+			  5)close() : socket() API + accept() APIì˜ ì†Œì¼“ ë‘˜ë‹¤ ìžì›í•´ì œ
